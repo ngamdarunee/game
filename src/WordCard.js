@@ -1,16 +1,82 @@
 import React from 'react';
+import './App.css';
 import CharacterCard from './CharacterCard';
+import _ from 'lodash';
+import { Component } from '../node_modules/react/cjs/react.development';
 
-const activationHandler = c => { console.log(`${c} has been activated.`) }
-
-function WordCard(props) {
-    return (
-        <div>
-            {Array.from(props.value).map((c, i) => <CharacterCard value={c} key={i} 
-            activationHandler={activationHandler}/>
-)}
-        </div>
-    );
+const prepareStateFromWord = (given_word) => {
+    let word = given_word.toUpperCase()
+    let chars = _.shuffle(Array.from(word))
+    return {
+        word,
+        chars,
+        attempt: 1,
+        guess: [],
+        completed: false
+    }
 }
+export default class WordCard extends Component {
+    contructor(props) {
+        super(props);
+        this.state = {
+            attempt: '',
+        }
+    }
 
-export default WordCard
+    componentWillMount() {
+        let data = prepareStateFromWord(this.props.value);
+        this.setState({
+            word: data.word,
+            chars: data.chars,
+            attempt: data.attempt,
+            guess: data.guess,
+            completed: data.completed,
+        })
+    }
+
+    activationHandler = (c) => {
+        let guess = [...this.state.guess, c]
+        this.setState({ guess })
+        if (guess.length == this.state.chars.length) {
+            if (guess.join('').toString() == this.state.word) {
+                this.setState({ guess: [], completed: true })
+            } else {
+                this.setState({ guess: [], attempt: this.state.attempt + 1 })
+            }
+        }
+    }
+
+    render() {
+        console.log(this.state);
+        return (
+            <div>
+                {
+                    this.state.chars.map((c, i) => <CharacterCard value={c} key={i} attempt={this.state.attempt}
+                        activationHandler={this.activationHandler} />)
+                }
+            </div>
+        );
+    }
+}
+//  if (guess === this.state.word) {
+//    console.log('yeah!')
+//  this.setState({ ...this.state, guess: '', completed: true })
+//} else {
+//  console.log('reset')
+//this.setState({ ...this.state, guess: '', attempt: this.state.attempt + 1 })
+//}
+//}
+//}
+
+
+//function WordCard(props) {
+  //  return (
+    //    <div>
+      //      {Array.from(props.value).map((c, i) => <CharacterCard value={c} key={i}
+        //    />
+          //  )}
+        //</div>
+    //);
+//}
+
+//export default WordCard
