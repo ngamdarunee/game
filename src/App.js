@@ -1,10 +1,13 @@
-import CharacterCard from './CharacterCard';
 import React from 'react';
-export default function App() {
- return (
- <div>
- <CharacterCard value="h"/>
- <CharacterCard value="i"/>
- </div>
- );
+import CharacterCard from "./CharacterCard"
+import './App.css'
+import WordCard from "./WordCard"
+const word = "HELLO";
+function App() {
+    return (
+        <div>
+            <WordCard value={word} />
+        </div>
+    );
 }
+export default App
