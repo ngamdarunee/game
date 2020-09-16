@@ -38,7 +38,7 @@ export default function WordCard(props) {
     setState({ ...state, guess });
     if (guess.length == state.word.length) {
       if (guess == state.word) {
-        console.log("yeah!");
+        console.log("Correct");
         setState({ ...state, guess: "", completed: true });
       } else {
         console.log("reset");
