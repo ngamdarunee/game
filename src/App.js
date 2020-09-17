@@ -7,8 +7,10 @@ const word = "Hello";
 
 function App() {
   return (
-    <div>
-      <WordCard value={word} />
+    <div className="App">
+      <header className="App-header">
+        <WordCard value={word} />
+      </header>
     </div>
   );
 }
