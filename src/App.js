@@ -9,7 +9,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <p>Welcome To Card Game</p>
+        <p className="font"> Welcome To Card Game</p>
         <WordCard value={word} />
       </header>
     </div>
